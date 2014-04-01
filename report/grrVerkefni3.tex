@@ -1,0 +1,52 @@
+%~ xelatex -shell-escape grrVerkefni3.tex
+
+\documentclass[a4paper,oneside]{article}
+\usepackage{a4wide}
+\usepackage[icelandic]{babel}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{graphicx}
+\usepackage{enumerate}
+
+\usepackage{mathtools} % := from \coloneqq
+\usepackage{units} % falleg 1/3 brot
+\usepackage{amsmath} % \begin{align} (also in \{mathtools})
+\usepackage{amsthm} % proof
+\usepackage{amssymb} % blacksquare og mathbb
+ \renewcommand{\qedsymbol}{$\blacksquare$}
+
+\usepackage{minted}
+\usemintedstyle{perldoc} % default, bw, perldoc
+\setlength\partopsep{-\topsep} % eyðir út bili að ofan og neðan kóða
+%\inputminted[ options ]{ language }{ filename }
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\lhead{Greining reiknirita}
+\chead{Verkefni 3}
+\rhead{Háskóli Íslands}
+
+\title{
+    Greining reiknirita:\ Verkefni 3
+    \\\small{Kennari: Páll Melsted}
+}
+\author{Bjarki Geir Benediktsson \and  Bjarni Jens Kristinsson \and Tandri Gauksson}
+\date{\small{Skil:\ 6. apríl 2014}}
+
+
+\begin{document}
+\maketitle
+
+\section{Lýsing á reikniritinu}
+Reikniritið reiknaði hratt.
+
+\pagebreak
+\section{Java kóði}
+\subsection{Kruskal eða Prim}
+%~ \inputminted[]{java}{../AVLIntervalTree.java}
+
+\subsection{Keyrsluforrit}
+%~ \inputminted[]{java}{../PrufuForrit.java}
+
+\end{document}
