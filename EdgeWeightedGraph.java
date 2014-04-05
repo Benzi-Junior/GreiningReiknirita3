@@ -156,6 +156,21 @@ public class EdgeWeightedGraph {
     }
 
     /**
+     * Removes the undirected edge <tt>e</tt> to the edge-weighted graph.
+     * @param e the edge
+     * @throws java.lang.IndexOutOfBoundsException unless both endpoints are between 0 and V-1
+     */
+    public void removeEdge(Edge e) {
+        int v = e.either();
+        int w = e.other(v);
+        if (v < 0 || v >= V) throw new IndexOutOfBoundsException("vertex " + v + " is not between 0 and " + (V-1));
+        if (w < 0 || w >= V) throw new IndexOutOfBoundsException("vertex " + w + " is not between 0 and " + (V-1));
+        adj[v].remove(e);
+        adj[w].remove(e);
+        E--;
+    }
+
+    /**
      * Returns the edges incident on vertex <tt>v</tt>.
      * @return the edges incident on vertex <tt>v</tt> as an Iterable
      * @param v the vertex
