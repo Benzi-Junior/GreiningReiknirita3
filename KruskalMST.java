@@ -93,6 +93,47 @@ public class KruskalMST {
     }
 
     /**
+     * Compute a minimum spanning tree (or forest) of an edge-weighted graph.
+     * @param G the edge-weighted graph
+     */
+    public KruskalMST(EdgeWeightedGraph G, Queue<Edge> Q,Edge E) {
+        // more efficient to build heap by passing array of edges
+        MinPQ<Edge> pq = new MinPQ<Edge>();
+        for (Edge e : G.edges()) {
+            pq.insert(e);
+        }
+
+        UF uf = new UF(G.V());
+	// set Q as the inital tree
+	while (!Q.isEmpty()) {
+		Edge e = Q.dequeue();
+		if (e != E) {
+			int v = e.either();
+			int w = e.other(v);
+			uf.union(v,w);
+			mst.enqueue(e);
+			weight += e.weight();
+		}
+	}
+	G.removeEdge(E);
+        // run greedy algorithm
+        while (!pq.isEmpty() && mst.size() < G.V() - 1) {
+            Edge e = pq.delMin();
+            int v = e.either();
+            int w = e.other(v);
+            if (!uf.connected(v, w)) { // v-w does not create a cycle
+                uf.union(v, w);  // merge v and w components
+                mst.enqueue(e);  // add edge e to mst
+                weight += e.weight();
+            }
+        }
+
+        // check optimality conditions
+        assert check(G);
+	G.addEdge(E);
+    }
+
+    /**
      * Returns the edges in a minimum spanning tree (or forest).
      * @return the edges in a minimum spanning tree (or forest) as
      *    an iterable of edges
