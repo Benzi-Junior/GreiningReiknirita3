@@ -97,6 +97,7 @@ public class KruskalMST {
      * @param G the edge-weighted graph
      */
     public KruskalMST(EdgeWeightedGraph G, Queue<Edge> Q,Edge E) {
+		G.removeEdge(E);
         // more efficient to build heap by passing array of edges
         MinPQ<Edge> pq = new MinPQ<Edge>();
         for (Edge e : G.edges()) {
@@ -104,22 +105,20 @@ public class KruskalMST {
         }
 
         UF uf = new UF(G.V());
-	// set Q as the inital tree
-	while (!Q.isEmpty()) {
-		Edge e = Q.dequeue();
-		if (!e.equals(E)) {
-			int v = e.either();
-			int w = e.other(v);
-			uf.union(v,w);
-			mst.enqueue(e);
-			weight += e.weight();
+		// set Q as the inital tree
+		while (!Q.isEmpty()) {
+			Edge e = Q.dequeue();
+			if (!e.equals(E)) {
+				int v = e.either();
+				int w = e.other(v);
+				uf.union(v,w);
+				mst.enqueue(e);
+				weight += e.weight();
+			}
 		}
-	}
-	G.removeEdge(E);
         // run greedy algorithm
         while (!pq.isEmpty() && mst.size() < G.V() - 1) {
             Edge e = pq.delMin();
-            if(e.equals(E)) continue;
             int v = e.either();
             int w = e.other(v);
             if (!uf.connected(v, w)) { // v-w does not create a cycle
@@ -131,7 +130,7 @@ public class KruskalMST {
 
         // check optimality conditions
         assert check(G);
-	G.addEdge(E);
+		G.addEdge(E);
     }
 
     /**
