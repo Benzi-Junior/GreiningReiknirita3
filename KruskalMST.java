@@ -107,7 +107,7 @@ public class KruskalMST {
 	// set Q as the inital tree
 	while (!Q.isEmpty()) {
 		Edge e = Q.dequeue();
-		if (e != E) {
+		if (!e.equals(E)) {
 			int v = e.either();
 			int w = e.other(v);
 			uf.union(v,w);
@@ -119,6 +119,7 @@ public class KruskalMST {
         // run greedy algorithm
         while (!pq.isEmpty() && mst.size() < G.V() - 1) {
             Edge e = pq.delMin();
+            if(e.equals(E)) continue;
             int v = e.either();
             int w = e.other(v);
             if (!uf.connected(v, w)) { // v-w does not create a cycle

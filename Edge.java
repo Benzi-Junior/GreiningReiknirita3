@@ -87,7 +87,15 @@ public class Edge implements Comparable<Edge> {
         else if (this.weight() > that.weight()) return +1;
         else                                    return  0;
     }
-
+	
+	public boolean equals(Edge that) {
+		if(this.compareTo(that) != 0) return false;
+		int t = that.either();
+		int u = that.other(t);
+		return (t == v && u == w) || (t == w && u == v);
+		
+	}
+	
     /**
      * Returns a string representation of the edge.
      * @return a string representation of the edge

@@ -19,9 +19,14 @@ public class keyrsluforrit {
         //~    og gera viðeigandi aðgerðir með þær.
         
         KruskalMST MST = new KruskalMST(EWG);
+        Queue<Edge> mst = new Queue<Edge>();
+        for( Edge e : MST.edges() ){
+			mst.enqueue(e);
+			}
         System.out.println((int)MST.weight());
         for (Edge e : MST.edges()) {
-            System.out.println(e);
+			KruskalMST MSTe = new KruskalMST( EWG, mst, e );
+            System.out.println(e + "\t" + MSTe.weight());
         }
     }
 }
