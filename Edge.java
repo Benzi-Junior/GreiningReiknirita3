@@ -88,6 +88,9 @@ public class Edge implements Comparable<Edge> {
         else                                    return  0;
     }
     
+    //~ Notkun: b = e.equals(d); 
+    //~ Fyrir: 
+    //~ Eftir: b == true þþaa e og d tengi saman sömu hnúta og hafi sömu vigt.
     public boolean equals(Edge that) {
         if(this.compareTo(that) != 0) return false;
         int t = that.either();

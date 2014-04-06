@@ -1,4 +1,4 @@
-public class keyrsluforrit2 {
+public class keyrsluforrit {
     public static void main(String[] args) {
         //~ Skanni sem les inn tölurnar
         java.util.Scanner scanner = new java.util.Scanner(System.in);
