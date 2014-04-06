@@ -42,23 +42,30 @@
 \section{Lýsing á reikniritinu}
 Við byggðum lausn okkar á klasanum \texttt{KruskalMST.java}\footnote{\url{http://algs4.cs.princeton.edu/43mst/KruskalMST.java.html}} sem er að finna á heimasíðu bókarinnar \emph{Algorithms} eftir Sedgewick og Wayne. Smiður klasans tekur inn óstefnt vigtað net $G=(V, \ E, \ W)$ og notar reiknirit Kruskals til að finna minnsta spanntré $mst$ og vigt þess $w$.
 
-Við skrifuðum nýja aðferð \texttt{secondMSTweight( EdgeWeightedGraph G, Edge e )} sem að finnur vigt minnsta spantré netsins $G_e=(V, \ mst \smallsetminus \{ e \}, \ W)$. Í \texttt{keyrsluforrit.java} finnum við fyrst minnsta spanntré $G$ og prentum vigt þess. Síðan tökum við hvern legg $e \in mst$ (raðað í vaxandi röð eftir fyrra hniti $e$) og finnum minnsta spantré netsins $G_e$ og prentum legginn $e$ og vigt þess $w_e$ á staðalúttak. 
+Við skrifuðum nýja aðferð \texttt{secondMSTweight( EdgeWeightedGraph G, Edge e )} sem að finnur vigt minnsta spanntré netsins $G_e=(V, \ E \smallsetminus \{ e \}, \ W)$. Í \texttt{keyrsluforrit.java} finnum við fyrst $mst$ og prentum vigt þess. Síðan tökum við hvern legg $e \in mst$ (raðað í vaxandi röð eftir fyrra hniti $e$) og finnum minnsta spanntré netsins $G_e$ og prentum legginn $e$ og vigt þess $w_e$ á staðalúttak. 
 
-Við útfærðum \texttt{secondMSTweight( EdgeWeightedGraph G, Edge e )} svipað og smiðinn fyrir \texttt{KruskalMST}. Í staðinn fyrir að fara línulega í gegn um alla leggi $V$ og kanna hvort þeir tengja saman samhengisþætti í skóginum fyrir netið þá byggjum við upp \texttt{UF} hlutinn með öllum leggjunum úr $mst \smallsetminus \{ e \}$. Þetta skilur okkur eftir með tvo samhengisþætti, eða tvö tré í skóginum, og þá förum við í vaxandi röð í gegn um $E$ og könnum hvort að hnúturinn sé $e$ og ef ekki hvort hann tengir saman tréin tvö. Ef hann gerir það þá erum við komin með minnsta spannandi hluttré fyrir $G_e$. \\
+Við útfærðum \texttt{secondMSTweight( EdgeWeightedGraph G, Edge e )} svipað og smiðinn fyrir \texttt{KruskalMST}. Í staðinn fyrir að fara línulega í gegn um alla leggi $V$ og kanna hvor t þeir tengja saman samhengisþætti í skóginum fyrir netið þá byggjum við upp \texttt{UF} hlutinn með öllum leggjunum úr $E \smallsetminus \{ e \}$. Þetta skilur okkur eftir með tvo samhengisþætti, eða tvö tré í skóginum, og þá förum við í vaxandi röð í gegn um $E$ og könnum hvort að hnúturinn sé $e$ og ef ekki hvort hann tengir saman trén tvö. Ef hann gerir það þá erum við komin með minnsta spannandi hluttré fyrir $G_e$. \\
 
 \noindent
-\texttt{KruskalMST.java} notast við eftirfarandi klasa frá sömu höfundum:
+\texttt{KruskalMST.java} notast við eftirfarandi klasa frá sömu höfundum (okkar breytingar eru taldar upp á eftir hverjum og einum klasa):
 \begin{itemize}
     \item \texttt{EdgeWeightedGraph.java}\footnote{\url{http://algs4.cs.princeton.edu/43mst/EdgeWeightedGraph.java.html}}
+        \begin{itemize}
+            \item Breyttum öllum línum sem búa til nýjan hlut af taginu \texttt{Edge} til að nota heiltöluvigt í stað fleytitölu (sjá athugasemdir við \texttt{Edge.java})
+        \end{itemize}
     \item \texttt{Queue.java}\footnote{\url{http://algs4.cs.princeton.edu/43mst/Queue.java.html}}
     \item \texttt{Edge.java}\footnote{\url{http://algs4.cs.princeton.edu/43mst/Edge.java.html}}
+        \begin{itemize}
+            \item Breyttum vigtinni yfir í að vera heiltala í stað fleytitölu
+            \item toString() aðferðin gefur örlítið öðru vísi strengjaframsetningu á hnútunum 
+            \item Bættum við toString2() til að prenta út hnút og vigt eins og er í .out skránum sem Páll gefur upp á heimasíðunni
+            \item Bættum við klasann lexiCompare sem ber saman hnúta eftir orðabókaröðun
+        \end{itemize}
     \item \texttt{MinPQ.java}\footnote{\url{http://algs4.cs.princeton.edu/24pq/MinPQ.java.html}}
     \item \texttt{UF.java}\footnote{\url{http://algs4.cs.princeton.edu/15uf/UF.java.html}}
     \item \texttt{Bag.java}\footnote{\url{http://algs4.cs.princeton.edu/13stacks/Bag.java.html}}
     \item \texttt{Stack.java}\footnote{\url{http://algs4.cs.princeton.edu/13stacks/Stack.java.html}}
 \end{itemize}
-
-Við breyttum þessum klösum á eftirfarandi vegu...
 
 
 \section{Tímaflækja verkefnisins}
@@ -68,10 +75,10 @@ Að búa til hlut af taginu \texttt{KruskalMST} tekur $O(E \log V)$ tíma. Hlutu
 
 \pagebreak
 \section{Java kóði}
-\subsection{Kruskal eða Prim}
-%~ \inputminted[]{java}{../AVLIntervalTree.java}
+\subsection{KruskalMST.java}
+\inputminted[]{java}{KruskalMST.java}
 
-\subsection{Keyrsluforrit}
-%~ \inputminted[]{java}{../PrufuForrit.java}
+\subsection{keyrsluforrit.java}
+\inputminted[]{java}{keyrsluforrit.java}
 
 \end{document}
