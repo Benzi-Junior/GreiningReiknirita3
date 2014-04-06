@@ -146,18 +146,11 @@ public class KruskalMST {
     //~ Fyrir: KMST er hlutur af taginu KruskalMST
     //~ Eftir: E inniheldur öll stök mst og er raðað vaxandi eftir fyrri hnút leggsins.
     public Iterable<Edge> edges2() {
-        MinPQ<String> minpqS = new MinPQ<String>();
+        MinPQ<Edge> sorted = new MinPQ<Edge>(new Edge.lexiCompare());
         for (Edge e : mst) {
-            minpqS.insert(e.toString());
-        }
-        
-        Queue<Edge> mstSorted = new Queue<Edge>();
-        for (String s : minpqS) {
-            String[] S = s.split(" ");
-            mstSorted.enqueue( new Edge( Integer.parseInt(S[0]), Integer.parseInt(S[1]), Integer.parseInt(S[2]) ) );
-        }
-        
-        return mstSorted;
+            sorted.insert(e);
+        } 
+        return sorted;
     }
 
     /**

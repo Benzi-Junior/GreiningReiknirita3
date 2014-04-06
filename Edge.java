@@ -5,7 +5,7 @@
  *  Immutable weighted edge.
  *
  *************************************************************************/
-
+import java.util.Comparator;
 /**
  *  The <tt>Edge</tt> class represents a weighted edge in an 
  *  {@link EdgeWeightedGraph}. Each edge consists of two integers
@@ -95,6 +95,19 @@ public class Edge implements Comparable<Edge> {
         return (t == v && u == w) || (t == w && u == v);
         
     }
+
+    public static class lexiCompare implements Comparator<Edge> 
+	{
+		public int compare(Edge e1, Edge e2){
+		int fyrra1 = e1.either();
+		int fyrra2 = e2.either();
+		if (Integer.compare(fyrra1,fyrra2)==0)
+			return Integer.compare(e1.other(fyrra1),e2.other(fyrra2));
+		else 
+			return Integer.compare(fyrra1,fyrra2);
+		}
+	}
+
     
     /**
      * Returns a string representation of the edge.
