@@ -1,4 +1,4 @@
-public class keyrsluforrit {
+public class keyrsluforrit2 {
     public static void main(String[] args) {
         //~ Skanni sem les inn tölurnar
         java.util.Scanner scanner = new java.util.Scanner(System.in);
@@ -19,14 +19,9 @@ public class keyrsluforrit {
         //~    og gera viðeigandi aðgerðir með þær.
         
         KruskalMST MST = new KruskalMST(EWG);
-        Queue<Edge> mst = (Queue<Edge>) MST.edges();
-        
-        //~ Prentum út á staðalúttak svörin við verkefninu.
-        System.out.println((int)MST.weight()); // vigt minnsta spantrés G
-        for (Edge e : MST.edges2()) {
-            KruskalMST MSTe = new KruskalMST( EWG, mst, e );
-            System.out.println(e.toString2() + " " + MSTe.weight()); // u v w  þar sem (u,v) eru leggir minnsta
-                                                                     // spantrés G\{e} með vigt w raðað eftir u
-        }
+        System.out.println(MST.weight());
+        for (Edge e : MST.sortedEdges()) {
+			System.out.println(e.toString2() + " " + MST.secondMSTweight(EWG,e));
+		}
     }
 }
