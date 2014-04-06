@@ -63,48 +63,6 @@ public class EdgeWeightedGraph {
     }
 
     /**
-     * Initializes a random edge-weighted graph with <tt>V</tt> vertices and <em>E</em> edges.
-     * param V the number of vertices
-     * param E the number of edges
-     * @throws java.lang.IllegalArgumentException if <tt>V</tt> < 0
-     * @throws java.lang.IllegalArgumentException if <tt>E</tt> < 0
-     */
-    public EdgeWeightedGraph(int V, int E) {
-        this(V);
-        if (E < 0) throw new IllegalArgumentException("Number of edges must be nonnegative");
-        for (int i = 0; i < E; i++) {
-            int v = (int) (Math.random() * V);
-            int w = (int) (Math.random() * V);
-            double weight = Math.round(100 * Math.random()) / 100.0;
-            Edge e = new Edge(v, w, weight);
-            addEdge(e);
-        }
-    }
-
-    /**  
-     * Initializes an edge-weighted graph from an input stream.
-     * The format is the number of vertices <em>V</em>,
-     * followed by the number of edges <em>E</em>,
-     * followed by <em>E</em> pairs of vertices and edge weights,
-     * with each entry separated by whitespace.
-     * @param in the input stream
-     * @throws java.lang.IndexOutOfBoundsException if the endpoints of any edge are not in prescribed range
-     * @throws java.lang.IllegalArgumentException if the number of vertices or edges is negative
-     */
-    public EdgeWeightedGraph(In in) {
-        this(in.readInt());
-        int E = in.readInt();
-        if (E < 0) throw new IllegalArgumentException("Number of edges must be nonnegative");
-        for (int i = 0; i < E; i++) {
-            int v = in.readInt();
-            int w = in.readInt();
-            double weight = in.readDouble();
-            Edge e = new Edge(v, w, weight);
-            addEdge(e);
-        }
-    }
-
-    /**
      * Initializes a new edge-weighted graph that is a deep copy of <tt>G</tt>.
      * @param G the edge-weighted graph to copy
      */
@@ -153,21 +111,6 @@ public class EdgeWeightedGraph {
         adj[v].add(e);
         adj[w].add(e);
         E++;
-    }
-
-    /**
-     * Removes the undirected edge <tt>e</tt> to the edge-weighted graph.
-     * @param e the edge
-     * @throws java.lang.IndexOutOfBoundsException unless both endpoints are between 0 and V-1
-     */
-    public void removeEdge(Edge e) {
-        int v = e.either();
-        int w = e.other(v);
-        if (v < 0 || v >= V) throw new IndexOutOfBoundsException("vertex " + v + " is not between 0 and " + (V-1));
-        if (w < 0 || w >= V) throw new IndexOutOfBoundsException("vertex " + w + " is not between 0 and " + (V-1));
-        adj[v].remove(e);
-        adj[w].remove(e);
-        E--;
     }
 
     /**
@@ -224,14 +167,4 @@ public class EdgeWeightedGraph {
         }
         return s.toString();
     }
-
-    /**
-     * Unit tests the <tt>EdgeWeightedGraph</tt> data type.
-     */
-    public static void main(String[] args) {
-        In in = new In(args[0]);
-        EdgeWeightedGraph G = new EdgeWeightedGraph(in);
-        StdOut.println(G);
-    }
-
 }
