@@ -21,7 +21,7 @@ public class keyrsluforrit {
         KruskalMST MST = new KruskalMST(EWG);
         System.out.println(MST.weight());
         for (Edge e : MST.sortedEdges()) {
-			System.out.println(e.toString2() + " " + MST.secondMSTweight(EWG,e));
-		}
+            System.out.println(e.toString2() + " " + MST.secondMSTweight(EWG,e));
+        }
     }
 }

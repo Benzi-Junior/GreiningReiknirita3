@@ -98,18 +98,20 @@ public class Edge implements Comparable<Edge> {
         return (t == v && u == w) || (t == w && u == v);
         
     }
-
-    public static class lexiCompare implements Comparator<Edge> 
-	{
-		public int compare(Edge e1, Edge e2){
-		int fyrra1 = e1.either();
-		int fyrra2 = e2.either();
-		if (Integer.compare(fyrra1,fyrra2)==0)
-			return Integer.compare(e1.other(fyrra1),e2.other(fyrra2));
-		else 
-			return Integer.compare(fyrra1,fyrra2);
-		}
-	}
+    
+    //~ Notkun: 
+    //~ Fyrir: 
+    //~ Eftir: 
+    public static class lexiCompare implements Comparator<Edge> {
+        public int compare(Edge e1, Edge e2){
+        int fyrra1 = e1.either();
+        int fyrra2 = e2.either();
+        if (Integer.compare(fyrra1,fyrra2)==0)
+            return Integer.compare(e1.other(fyrra1),e2.other(fyrra2));
+        else 
+            return Integer.compare(fyrra1,fyrra2);
+        }
+    }
 
     
     /**
@@ -117,9 +119,13 @@ public class Edge implements Comparable<Edge> {
      * @return a string representation of the edge
      */
     public String toString() {
-        //~ return String.format("%d-%d %.5f", v, w, weight);
         return v+" "+w+" "+weight;
     }
+    
+    /**
+     * Returns a string representation of the edge.
+     * @return a string representation of the edge
+     */
     public String toString2() {
         return v+" "+w;
     }

@@ -51,7 +51,7 @@ Við útfærðum \texttt{secondMSTweight( EdgeWeightedGraph G, Edge e )} svipað
 \begin{itemize}
     \item \texttt{EdgeWeightedGraph.java}\footnote{\url{http://algs4.cs.princeton.edu/43mst/EdgeWeightedGraph.java.html}}
         \begin{itemize}
-            \item Breyttum öllum línum sem búa til nýjan hlut af taginu \texttt{Edge} til að nota heiltöluvigt í stað fleytitölu (sjá athugasemdir við \texttt{Edge.java})
+            \item Breyttum öllum línum sem að búa til nýjan hlut af taginu \texttt{Edge} til að nota heiltöluvigt í stað fleytitölu (sjá athugasemdir við \texttt{Edge.java})
         \end{itemize}
     \item \texttt{Queue.java}\footnote{\url{http://algs4.cs.princeton.edu/43mst/Queue.java.html}}
     \item \texttt{Edge.java}\footnote{\url{http://algs4.cs.princeton.edu/43mst/Edge.java.html}}
@@ -59,6 +59,7 @@ Við útfærðum \texttt{secondMSTweight( EdgeWeightedGraph G, Edge e )} svipað
             \item Breyttum vigtinni yfir í að vera heiltala í stað fleytitölu
             \item toString() aðferðin gefur örlítið öðru vísi strengjaframsetningu á hnútunum 
             \item Bættum við toString2() til að prenta út hnút og vigt eins og er í .out skránum sem Páll gefur upp á heimasíðunni
+            \item Bættum við equals() aðferð
             \item Bættum við klasann lexiCompare sem ber saman hnúta eftir orðabókaröðun
         \end{itemize}
     \item \texttt{MinPQ.java}\footnote{\url{http://algs4.cs.princeton.edu/24pq/MinPQ.java.html}}
@@ -68,17 +69,28 @@ Við útfærðum \texttt{secondMSTweight( EdgeWeightedGraph G, Edge e )} svipað
 \end{itemize}
 
 
-\section{Tímaflækja verkefnisins}
+\section{Tímaflækja lausnarinnar}
 Hér er $G$ upphaflega netið sem \texttt{KruskalMST} hluturinn er smíðaður með, $V$ fjöldi hnúta þess og $E$ fjöldi leggja.
 
-Að búa til hlut af taginu \texttt{KruskalMST} tekur $O(E \log V)$ tíma. Hluturinn er minnsta spanntré $G$ og inniheldur $V-1$ leggi. Við köllum einu sinni á \texttt{secondMSTweight} fyrir hvern legg
+Að búa til hlut af taginu \texttt{KruskalMST} tekur $O(E \log V)$ tíma. Hluturinn er minnsta spanntré $G$ og inniheldur $V-1$ leggi. Við köllum því $\Theta(V)$ sinnum á \texttt{secondMSTweight} og greinum aðferðina svona:
+\begin{enumerate}
+    \item Fyrst þarf að smíða pq af taginu \texttt{MinPQ}. Innsetning er innistæðubundið $O(\log n)$ svo smíði og innsetning á $E$ leggjum tekur $O(E \log E)$.
+    \item Að smíða hlut uf af taginu \texttt{UF} tekur $V$ tíma. Að bæta legg í uf tekur $O(\log V)$ tíma en það er gert $V$ sinnum. Þessi partur forritsins tekur því $O(V +  V \log V)$.
+    \item Þegar farið er í gegn um pq og hann tæmdur þarf í versta falli að skoða alla leggina eða $E$ talsins.
+\end{enumerate}
+Samtals keyrslutími \texttt{secondMSTweight} er þá $O(E \log E + V + V \log V + E) = O(E \log V^2 + V + E \log V + E) = O(E \log V)$ af því að $E = O(V^2)$.
+
+Keyrslutími \texttt{keyrsluforrit.java} er þá $T_{Kruskal} + (V-1) \cdot T_{secondMSTweight}$ eða $O(E \log V + (V-1) \cdot E \log V) = O(EV \log V) = O(E^{3/2} \log V)$.
 
 \pagebreak
 \section{Java kóði}
 \subsection{KruskalMST.java}
-\inputminted[]{java}{KruskalMST.java}
+\inputminted[]{java}{../KruskalMST.java}
 
 \subsection{keyrsluforrit.java}
-\inputminted[]{java}{keyrsluforrit.java}
+\inputminted[]{java}{../keyrsluforrit.java}
+
+\subsection{Edge.java}
+\inputminted[firstline=91,firstnumber=91,lastline=131]{java}{../Edge.java}
 
 \end{document}
