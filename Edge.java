@@ -24,7 +24,7 @@ public class Edge implements Comparable<Edge> {
 
     private final int v;
     private final int w;
-    private final double weight;
+    private final int weight;
 
     /**
      * Initializes an edge between vertices <tt>v/tt> and <tt>w</tt> of
@@ -36,10 +36,10 @@ public class Edge implements Comparable<Edge> {
      *    is a negative integer
      * @throws IllegalArgumentException if <tt>weight</tt> is <tt>NaN</tt>
      */
-    public Edge(int v, int w, double weight) {
+    public Edge(int v, int w, int weight) {
         if (v < 0) throw new IndexOutOfBoundsException("Vertex name must be a nonnegative integer");
         if (w < 0) throw new IndexOutOfBoundsException("Vertex name must be a nonnegative integer");
-        if (Double.isNaN(weight)) throw new IllegalArgumentException("Weight is NaN");
+        //~ if (Double.isNaN(weight)) throw new IllegalArgumentException("Weight is NaN");
         this.v = v;
         this.w = w;
         this.weight = weight;
@@ -49,7 +49,7 @@ public class Edge implements Comparable<Edge> {
      * Returns the weight of the edge.
      * @return the weight of the edge
      */
-    public double weight() {
+    public int weight() {
         return weight;
     }
 
@@ -87,28 +87,32 @@ public class Edge implements Comparable<Edge> {
         else if (this.weight() > that.weight()) return +1;
         else                                    return  0;
     }
-	
-	public boolean equals(Edge that) {
-		if(this.compareTo(that) != 0) return false;
-		int t = that.either();
-		int u = that.other(t);
-		return (t == v && u == w) || (t == w && u == v);
-		
-	}
-	
+    
+    public boolean equals(Edge that) {
+        if(this.compareTo(that) != 0) return false;
+        int t = that.either();
+        int u = that.other(t);
+        return (t == v && u == w) || (t == w && u == v);
+        
+    }
+    
     /**
      * Returns a string representation of the edge.
      * @return a string representation of the edge
      */
     public String toString() {
-        return String.format("%d-%d %.5f", v, w, weight);
+        //~ return String.format("%d-%d %.5f", v, w, weight);
+        return v+" "+w+" "+weight;
+    }
+    public String toString2() {
+        return v+" "+w;
     }
 
     /**
      * Unit tests the <tt>Edge</tt> data type.
      */
     public static void main(String[] args) {
-        Edge e = new Edge(12, 23, 3.14);
+        Edge e = new Edge(12, 23, (int)3.14);
         StdOut.println(e);
     }
 }

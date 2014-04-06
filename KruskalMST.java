@@ -61,7 +61,7 @@
  *  @author Kevin Wayne
  */
 public class KruskalMST {
-    private double weight;  // weight of MST
+    private int weight;  // weight of MST
     private Queue<Edge> mst = new Queue<Edge>();  // edges in MST
 
     /**
@@ -104,18 +104,18 @@ public class KruskalMST {
         }
 
         UF uf = new UF(G.V());
-		// set Q as the inital tree
-		while (!Q.isEmpty()) {
-			Edge e = Q.dequeue();
-			if (!e.equals(E)) {
-				int v = e.either();
-				int w = e.other(v);
-				uf.union(v,w);
-				mst.enqueue(e);
-				weight += e.weight();
-			}
-		}
-		
+        // set Q as the inital tree
+        while (!Q.isEmpty()) {
+            Edge e = Q.dequeue();
+            if (!e.equals(E)) {
+                int v = e.either();
+                int w = e.other(v);
+                uf.union(v,w);
+                mst.enqueue(e);
+                weight += e.weight();
+            }
+        }
+        
         // run greedy algorithm
         while (!pq.isEmpty() && mst.size() < G.V() - 1) {
             Edge e = pq.delMin();
@@ -141,12 +141,30 @@ public class KruskalMST {
     public Iterable<Edge> edges() {
         return mst;
     }
+    
+    //~ Notkun: Iterable<Edge> E = KMST.edges2();
+    //~ Fyrir: KMST er hlutur af taginu KruskalMST
+    //~ Eftir: E inniheldur öll stök mst og er raðað vaxandi eftir fyrri hnút leggsins.
+    public Iterable<Edge> edges2() {
+        MinPQ<String> minpqS = new MinPQ<String>();
+        for (Edge e : mst) {
+            minpqS.insert(e.toString());
+        }
+        
+        Queue<Edge> mstSorted = new Queue<Edge>();
+        for (String s : minpqS) {
+            String[] S = s.split(" ");
+            mstSorted.enqueue( new Edge( Integer.parseInt(S[0]), Integer.parseInt(S[1]), Integer.parseInt(S[2]) ) );
+        }
+        
+        return mstSorted;
+    }
 
     /**
      * Returns the sum of the edge weights in a minimum spanning tree (or forest).
      * @return the sum of the edge weights in a minimum spanning tree (or forest)
      */
-    public double weight() {
+    public int weight() {
         return weight;
     }
     
@@ -223,6 +241,4 @@ public class KruskalMST {
         }
         StdOut.printf("%.5f\n", mst.weight());
     }
-
 }
-
