@@ -79,7 +79,7 @@ Að búa til hlut af taginu \texttt{KruskalMST} tekur $O(E \log V)$ tíma skv.\@
     \item Að smíða hlut uf af taginu \texttt{UF} tekur $V$ tíma. Að sameina samhengisdæmi uf tekur $O(\log V)$ tíma en það er gert $V$ sinnum. Þessi partur forritsins tekur því $O(V +  V \log V)$.
     \item Þegar farið er í gegn um pq og hann tæmdur þarf í versta falli að skoða alla leggina eða $E$ talsins.
 \end{enumerate}
-Nú er fjöldi leggja $E$ í mesta lagi $V + (V-1) + ... + 1 = {V(V-1) \over 2}$ þ.a.\@ $E = O(V^2)$. Keyrslutími \texttt{secondMSTweight} er því skv.\@ ofantöldu
+Nú er fjöldi leggja $E$ í mesta lagi $(V-1) + (V-2) + ... + 1 = {(V-1)(V-2) \over 2}$ þ.a.\@ $E = O(V^2)$. Keyrslutími \texttt{secondMSTweight} er því skv.\@ ofantöldu
 \begin{align*}
     O(E \log E + V + V \log V + E) = O(E \log V^2 + V + E \log V + E) = O(E \log V).
 \end{align*}
