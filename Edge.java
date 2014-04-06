@@ -129,12 +129,4 @@ public class Edge implements Comparable<Edge> {
     public String toString2() {
         return v+" "+w;
     }
-
-    /**
-     * Unit tests the <tt>Edge</tt> data type.
-     */
-    public static void main(String[] args) {
-        Edge e = new Edge(12, 23, (int)3.14);
-        StdOut.println(e);
-    }
 }
