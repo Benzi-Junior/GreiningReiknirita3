@@ -64,7 +64,7 @@ public class KruskalMST {
     private int weight;  // weight of MST
     private Queue<Edge> mst = new Queue<Edge>();  // edges in MST
 
-    /**
+   /**
      * Compute a minimum spanning tree (or forest) of an edge-weighted graph.
      * @param G the edge-weighted graph
      */
@@ -114,10 +114,11 @@ public class KruskalMST {
                 mst.enqueue(e);
                 weight += e.weight();
             }
+//		G.removeEdge(e);
         }
         
         // run greedy algorithm
-        while (!pq.isEmpty() && mst.size() < G.V() - 1) {
+        while (!pq.isEmpty() && mst.size() < G.V() - 1 && uf.count()>1) {
             Edge e = pq.delMin();
             if(e.equals(E)) continue;
             int v = e.either();
@@ -130,7 +131,7 @@ public class KruskalMST {
         }
 
         // check optimality conditions
-        assert check(G);
+ //       assert check(G);
     }
 
     /**
